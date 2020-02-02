@@ -1,0 +1,5 @@
+The total number of months is 86
+The networth of the company is $38382578
+The average of the profit and loses is $446309.05
+The max profit was on Feb-2012 and it was $1170593
+The min profit was on Sep-2013 and it was $-1196225
