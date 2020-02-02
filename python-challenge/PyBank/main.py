@@ -1,67 +1,52 @@
 import os         # Used to read csv files
 import csv        # Used to read csv files
-import statistics # Used to calculate statistical data
 
 # Path to collect data from the Resources folder
-bank_csv = os.path.join("..", "election_data.csv")
+election_csv = os.path.join("..", "budget_data.csv")
 
 # Read in the CSV file
-with open(bank_csv, 'r') as csvfile:
+with open(election_csv, 'r') as csvfile:
 
     csvreader = csv.reader(csvfile, delimiter=',') # Split the data on commas
     csv_header = next(csvfile)  # header of csv
     
-    total_votes = 0 # Counts the number of total months
-    candidates = {}
-
+    month_counter = 0 # Counts the number of total months
+    profit_loses = {
+        'date': [],
+        'profit': []
+    }
+    networth = 0 # Total amount of "Profit/Losses" over the entire period
     # Loop through the data
     for row in csvreader:
-        #   * The total number of votes cast
-        total_votes += 1
-        #   * A complete list of candidates who received votes
-        try: 
-            candidates[row[2]]['votes'] += 1
-        except:
-            candidates[row[2]] = {
-                'votes' : 0,
-                'percentage': 0
-            }
-    # Calculate vote percentages
-    for candidate in candidates:
-        percent = candidates[candidate]['votes'] / total_votes
-        candidates[candidate]['percentage'] = round(percent,3) * 100
+        
+        month_counter += 1          # Add one month per row 
+        networth += int(row[1])     # Add the gains/losses of that month to networth
+        profit_loses['date'].append(row[0])          # Add date to array
+        profit_loses['profit'].append(int(row[1]))   # Add to array the gains/loses of each month
 
-    # Show Results
-    print('Election Results\n-------------------------')
-    print('Total Votes: {}\n-------------------------'.format(total_votes))
-    winner = {
-        'name' : '',
-        'votes': 0
-    }
-    for candidate in candidates:
-        votes = candidates[candidate]['votes']
-        percent = candidates[candidate]['percentage']
-        if(winner['votes'] < votes):
-            winner['votes'] = votes
-            winner['name'] = candidate
-        print('{}: {} ({}%)'.format(candidate,votes,percent))
-    print('-------------------------')
-    print('Winner: ' + winner['name'])
-    print('-------------------------')
+    average_profit = round(networth / month_counter,2)            # Calculate the average profit from gains array
+    max_profit_index = profit_loses['profit'].index(max(profit_loses['profit'])) # Get the index of the max profit
+    min_profit_index = profit_loses['profit'].index(min(profit_loses['profit'])) # Get the index of the min profit
+
+    
+    print(f'The total number of months is {month_counter}')
+    print(f'The networth of the company is ${networth}')
+    print(f'The average of the profit and loses is ${average_profit}')
+    print('The max profit was on {} and it was ${}'.format(profit_loses['date'][max_profit_index],profit_loses['profit'][max_profit_index]))
+    print('The min profit was on {} and it was ${}'.format(profit_loses['date'][min_profit_index],profit_loses['profit'][min_profit_index]))
 
     f = open("./analysis.txt","w+") # Open the file to write data
     # Write Data
-    f.write('Election Results\n-------------------------\n')
-    f.write('Total Votes: {}\n-------------------------\n'.format(total_votes))
-    winner = {
-        'name' : '',
-        'votes': 0
-    }
-    for candidate in candidates:
-        votes = candidates[candidate]['votes']
-        percent = candidates[candidate]['percentage']
-        f.write('{}: {} ({}%)\n'.format(candidate,votes,percent))
-    f.write('-------------------------\n')
-    f.write('Winner: ' + winner['name'] + '\n')
-    f.write('-------------------------')
+    f.write(f'The total number of months is {month_counter}\n')
+    f.write(f'The networth of the company is ${networth}\n')
+    f.write(f'The average of the profit and loses is ${average_profit}\n')
+    f.write('The max profit was on {} and it was ${}\n'.format(profit_loses['date'][max_profit_index],profit_loses['profit'][max_profit_index]))
+    f.write('The min profit was on {} and it was ${}\n'.format(profit_loses['date'][min_profit_index],profit_loses['profit'][min_profit_index]))
     f.close() # Close the file
+
+
+
+
+
+
+
