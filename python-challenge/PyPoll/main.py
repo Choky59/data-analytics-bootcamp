@@ -23,7 +23,7 @@ with open(bank_csv, 'r') as csvfile:
             candidates[row[2]]['votes'] += 1
         except:
             candidates[row[2]] = {
-                'votes' : 0,
+                'votes' : 1,
                 'percentage': 0
             }
     # Calculate vote percentages
