@@ -1,5 +1,11 @@
-The total number of months is 86
-The networth of the company is $38382578
-The average of the profit and loses is $446309.05
-The max profit was on Feb-2012 and it was $1170593
-The min profit was on Sep-2013 and it was $-1196225
+Election Results
+-------------------------
+Total Votes: 3521001
+-------------------------
+Khan: 2218230 (63.0%)
+Correy: 704199 (20.0%)
+Li: 492939 (14.000000000000002%)
+O'Tooley: 105629 (3.0%)
+-------------------------
+Winner: 
+-------------------------
