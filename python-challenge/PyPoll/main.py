@@ -53,10 +53,6 @@ with open(bank_csv, 'r') as csvfile:
     # Write Data
     f.write('Election Results\n-------------------------\n')
     f.write('Total Votes: {}\n-------------------------\n'.format(total_votes))
-    winner = {
-        'name' : '',
-        'votes': 0
-    }
     for candidate in candidates:
         votes = candidates[candidate]['votes']
         percent = candidates[candidate]['percentage']
